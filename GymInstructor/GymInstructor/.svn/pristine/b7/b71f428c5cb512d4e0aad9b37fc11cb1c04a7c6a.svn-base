@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4a3cfc49b9414fb99ff0ab8dfd3dc133" Name="Diagram1">
+        <EntityTypeShape EntityType="MVCDemoModel.Admin" Width="1.5" PointX="0.75" PointY="6.625" />
+        <EntityTypeShape EntityType="MVCDemoModel.City" Width="1.5" PointX="5.25" PointY="3.25" />
+        <EntityTypeShape EntityType="MVCDemoModel.Country" Width="1.5" PointX="0.75" PointY="3.25" />
+        <EntityTypeShape EntityType="MVCDemoModel.Gender" Width="1.5" PointX="5.25" PointY="0.75" />
+        <EntityTypeShape EntityType="MVCDemoModel.State" Width="1.5" PointX="3" PointY="3.25" />
+        <EntityTypeShape EntityType="MVCDemoModel.UserDetail" Width="1.5" PointX="7.5" PointY="2" />
+        <AssociationConnector Association="MVCDemoModel.FK_CityMaster_StateMaster" />
+        <AssociationConnector Association="MVCDemoModel.FK_UserDetail_City" />
+        <AssociationConnector Association="MVCDemoModel.FK_StateMaster_CountryMaster" />
+        <AssociationConnector Association="MVCDemoModel.FK_UserDetail_Country" />
+        <AssociationConnector Association="MVCDemoModel.FK_UserDetail_Gender" />
+        <AssociationConnector Association="MVCDemoModel.FK_UserDetail_State" />
+        <EntityTypeShape EntityType="MVCDemoModel.User" Width="1.5" PointX="3.375" PointY="7" />
+        <AssociationConnector Association="MVCDemoModel.FK_UserDetail_User" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

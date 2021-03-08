@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MVCDemoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="MVCDemoEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cities" EntityType="MVCDemoModel.City" />
+    <EntitySet Name="Countries" EntityType="MVCDemoModel.Country" />
+    <EntitySet Name="Genders" EntityType="MVCDemoModel.Gender" />
+    <EntitySet Name="States" EntityType="MVCDemoModel.State" />
+    <AssociationSet Name="FK_CityMaster_StateMaster" Association="MVCDemoModel.FK_CityMaster_StateMaster">
+      <End Role="State" EntitySet="States" />
+      <End Role="City" EntitySet="Cities" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StateMaster_CountryMaster" Association="MVCDemoModel.FK_StateMaster_CountryMaster">
+      <End Role="Country" EntitySet="Countries" />
+      <End Role="State" EntitySet="States" />
+    </AssociationSet>
+    <EntitySet Name="Users" EntityType="MVCDemoModel.User" />
+    <EntitySet Name="UserDetails" EntityType="MVCDemoModel.UserDetail" />
+    <AssociationSet Name="FK_UserDetail_City" Association="MVCDemoModel.FK_UserDetail_City">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="UserDetail" EntitySet="UserDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserDetail_Country" Association="MVCDemoModel.FK_UserDetail_Country">
+      <End Role="Country" EntitySet="Countries" />
+      <End Role="UserDetail" EntitySet="UserDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserDetail_Gender" Association="MVCDemoModel.FK_UserDetail_Gender">
+      <End Role="Gender" EntitySet="Genders" />
+      <End Role="UserDetail" EntitySet="UserDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserDetail_State" Association="MVCDemoModel.FK_UserDetail_State">
+      <End Role="State" EntitySet="States" />
+      <End Role="UserDetail" EntitySet="UserDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserDetail_User" Association="MVCDemoModel.FK_UserDetail_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserDetail" EntitySet="UserDetails" />
+    </AssociationSet>
+    <EntitySet Name="Admins" EntityType="MVCDemoModel.Admin" />
+  </EntityContainer>
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="StateID" Type="Int32" />
+    <NavigationProperty Name="State" Relationship="MVCDemoModel.FK_CityMaster_StateMaster" FromRole="City" ToRole="State" />
+    <NavigationProperty Name="UserDetails" Relationship="MVCDemoModel.FK_UserDetail_City" FromRole="City" ToRole="UserDetail" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CountryCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="States" Relationship="MVCDemoModel.FK_StateMaster_CountryMaster" FromRole="Country" ToRole="State" />
+    <NavigationProperty Name="UserDetails" Relationship="MVCDemoModel.FK_UserDetail_Country" FromRole="Country" ToRole="UserDetail" />
+  </EntityType>
+  <EntityType Name="Gender">
+    <Key>
+      <PropertyRef Name="GenderId" />
+    </Key>
+    <Property Name="GenderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GenderName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="UserDetails" Relationship="MVCDemoModel.FK_UserDetail_Gender" FromRole="Gender" ToRole="UserDetail" />
+  </EntityType>
+  <EntityType Name="State">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CountryID" Type="Int32" />
+    <NavigationProperty Name="Cities" Relationship="MVCDemoModel.FK_CityMaster_StateMaster" FromRole="State" ToRole="City" />
+    <NavigationProperty Name="Country" Relationship="MVCDemoModel.FK_StateMaster_CountryMaster" FromRole="State" ToRole="Country" />
+    <NavigationProperty Name="UserDetails" Relationship="MVCDemoModel.FK_UserDetail_State" FromRole="State" ToRole="UserDetail" />
+  </EntityType>
+  <Association Name="FK_CityMaster_StateMaster">
+    <End Type="MVCDemoModel.State" Role="State" Multiplicity="0..1" />
+    <End Type="MVCDemoModel.City" Role="City" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="State">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="City">
+        <PropertyRef Name="StateID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StateMaster_CountryMaster">
+    <End Type="MVCDemoModel.Country" Role="Country" Multiplicity="0..1" />
+    <End Type="MVCDemoModel.State" Role="State" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="State">
+        <PropertyRef Name="CountryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="IsBlockByAdmin" Type="Boolean" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="UserDetails" Relationship="MVCDemoModel.FK_UserDetail_User" FromRole="User" ToRole="UserDetail" />
+  </EntityType>
+  <EntityType Name="UserDetail">
+    <Key>
+      <PropertyRef Name="UserDetailId" />
+    </Key>
+    <Property Name="UserDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ImageName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ImageType" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="DOB" Type="DateTime" Precision="3" />
+    <Property Name="GenderId" Type="Int32" />
+    <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CountryId" Type="Int32" />
+    <Property Name="StateId" Type="Int32" />
+    <Property Name="CityId" Type="Int32" />
+    <Property Name="PostalCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="LandMark" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="City" Relationship="MVCDemoModel.FK_UserDetail_City" FromRole="UserDetail" ToRole="City" />
+    <NavigationProperty Name="Country" Relationship="MVCDemoModel.FK_UserDetail_Country" FromRole="UserDetail" ToRole="Country" />
+    <NavigationProperty Name="Gender" Relationship="MVCDemoModel.FK_UserDetail_Gender" FromRole="UserDetail" ToRole="Gender" />
+    <NavigationProperty Name="State" Relationship="MVCDemoModel.FK_UserDetail_State" FromRole="UserDetail" ToRole="State" />
+    <NavigationProperty Name="User" Relationship="MVCDemoModel.FK_UserDetail_User" FromRole="UserDetail" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_UserDetail_City">
+    <End Type="MVCDemoModel.City" Role="City" Multiplicity="0..1" />
+    <End Type="MVCDemoModel.UserDetail" Role="UserDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UserDetail">
+        <PropertyRef Name="CityId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserDetail_Country">
+    <End Type="MVCDemoModel.Country" Role="Country" Multiplicity="0..1" />
+    <End Type="MVCDemoModel.UserDetail" Role="UserDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UserDetail">
+        <PropertyRef Name="CountryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserDetail_Gender">
+    <End Type="MVCDemoModel.Gender" Role="Gender" Multiplicity="0..1" />
+    <End Type="MVCDemoModel.UserDetail" Role="UserDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gender">
+        <PropertyRef Name="GenderId" />
+      </Principal>
+      <Dependent Role="UserDetail">
+        <PropertyRef Name="GenderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserDetail_State">
+    <End Type="MVCDemoModel.State" Role="State" Multiplicity="0..1" />
+    <End Type="MVCDemoModel.UserDetail" Role="UserDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="State">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UserDetail">
+        <PropertyRef Name="StateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserDetail_User">
+    <End Type="MVCDemoModel.User" Role="User" Multiplicity="1" />
+    <End Type="MVCDemoModel.UserDetail" Role="UserDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserDetail">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="AdminId" />
+    </Key>
+    <Property Name="AdminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="DOB" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Gender" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ImageName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ImageType" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Status" Type="Boolean" Nullable="false" />
+  </EntityType>
+</Schema>

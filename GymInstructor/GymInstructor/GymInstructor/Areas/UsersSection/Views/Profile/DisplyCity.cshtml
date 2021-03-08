@@ -1,0 +1,10 @@
+﻿@model BOL.City
+
+<option>Select City</option>
+@if (ViewBag.CityList!=null)
+{
+    foreach (var item in ViewBag.CityList)
+    {
+        <option value="@item.Value">@item.Text</option>
+    }
+}

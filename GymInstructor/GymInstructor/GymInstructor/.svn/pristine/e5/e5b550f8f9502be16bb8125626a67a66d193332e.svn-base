@@ -1,0 +1,209 @@
+﻿
+@{
+    ViewBag.Title = "classes";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<div class="site-blocks-cover inner-page overlay" style="background-image: url('@Url.Content("~/Content/images/hero_bg_2.jpg")');" data-aos="fade" data-stellar-background-ratio="0.5">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-7 text-center">
+                <h1 class="mb-5">Classes &amp; <strong>Schedules</strong></h1>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="featured-classes bg-light py-5 block-13">
+    <div class="container">
+
+        <div class="heading-with-border">
+            <h2 class="heading text-uppercase">Featured Class</h2>
+        </div>
+        <div class="nonloop-block-13 owl-carousel">
+
+            <div class="block-media-1 heading-with-border bg-white">
+                <img src="~/Content/images/img_1.jpg" alt="Image" class="img-fluid">
+                <div class="p-4">
+                    <h3 class="h5 heading">Yoga</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit, excepturi!</p>
+                    <span class="d-flex align-items-center">
+                        <span class="icon-person h4 mr-3"></span>
+                        <span>Bruce Mars, David Holmes</span>
+                    </span>
+                </div>
+            </div>
+            <div class="block-media-1 heading-with-border bg-white">
+                <img src="~/Content/images/img_2.jpg" alt="Image" class="img-fluid">
+                <div class="p-4">
+                    <h3 class="h5 heading">Running</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit, excepturi!</p>
+                    <span class="d-flex align-items-center">
+                        <span class="icon-person h4 mr-3"></span>
+                        <span>Bruce Mars, David Holmes</span>
+                    </span>
+                </div>
+            </div>
+            <div class="block-media-1 heading-with-border bg-white">
+                <img src="~/Content/images/img_1.jpg" alt="Image" class="img-fluid">
+                <div class="p-4">
+                    <h3 class="h5 heading">Yoga</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit, excepturi!</p>
+                    <span class="d-flex align-items-center">
+                        <span class="icon-person h4 mr-3"></span>
+                        <span>Bruce Mars, David Holmes</span>
+                    </span>
+                </div>
+            </div>
+            <div class="block-media-1 heading-with-border bg-white">
+                <img src="~/Content/images/img_2.jpg" alt="Image" class="img-fluid">
+                <div class="p-4">
+                    <h3 class="h5 heading">Running</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit, excepturi!</p>
+                    <span class="d-flex align-items-center">
+                        <span class="icon-person h4 mr-3"></span>
+                        <span>Bruce Mars, David Holmes</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="site-section">
+    <div class="container">
+        <div class="row text-center">
+            <div class="heading-with-border text-center w-100 mb-5">
+                <h2 class="heading text-uppercase">Our Classes</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="block-media-1 heading-with-border bg-white border">
+                    <img src="~/Content/images/img_1.jpg" alt="Image" class="img-fluid">
+                    <div class="p-4">
+                        <h3 class="h5 heading">Yoga</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit, excepturi!</p>
+                        <span class="d-flex align-items-center">
+                            <span class="icon-person h4 mr-3"></span>
+                            <span>Bruce Mars, David Holmes</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="block-media-1 heading-with-border bg-white border">
+                    <img src="~/Content/images/img_2.jpg" alt="Image" class="img-fluid">
+                    <div class="p-4">
+                        <h3 class="h5 heading">Running</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit, excepturi!</p>
+                        <span class="d-flex align-items-center">
+                            <span class="icon-person h4 mr-3"></span>
+                            <span>Bruce Mars, David Holmes</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="block-media-1 heading-with-border bg-white border">
+                    <img src="~/Content/images/img_1.jpg" alt="Image" class="img-fluid">
+                    <div class="p-4">
+                        <h3 class="h5 heading">Yoga</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit, excepturi!</p>
+                        <span class="d-flex align-items-center">
+                            <span class="icon-person h4 mr-3"></span>
+                            <span>Bruce Mars, David Holmes</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="block-media-1 heading-with-border bg-white border">
+                    <img src="~/Content/images/img_2.jpg" alt="Image" class="img-fluid">
+                    <div class="p-4">
+                        <h3 class="h5 heading">Running</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit, excepturi!</p>
+                        <span class="d-flex align-items-center">
+                            <span class="icon-person h4 mr-3"></span>
+                            <span>Bruce Mars, David Holmes</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="block-media-1 heading-with-border bg-white border">
+                    <img src="~/Content/images/img_1.jpg" alt="Image" class="img-fluid">
+                    <div class="p-4">
+                        <h3 class="h5 heading">Yoga</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit, excepturi!</p>
+                        <span class="d-flex align-items-center">
+                            <span class="icon-person h4 mr-3"></span>
+                            <span>Bruce Mars, David Holmes</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="block-media-1 heading-with-border bg-white border">
+                    <img src="~/Content/images/img_2.jpg" alt="Image" class="img-fluid">
+                    <div class="p-4">
+                        <h3 class="h5 heading">Running</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit, excepturi!</p>
+                        <span class="d-flex align-items-center">
+                            <span class="icon-person h4 mr-3"></span>
+                            <span>Bruce Mars, David Holmes</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="site-section block-14 bg-light">
+    <div class="container">
+
+        <div class="heading-with-border text-center">
+            <h2 class="heading text-uppercase">Testimonials</h2>
+        </div>
+        <div class="nonloop-block-14 owl-carousel">
+            <div class="d-flex block-testimony">
+                <div class="person mr-3">
+                    <img src="~/Content/images/person_1.jpg" alt="Image" class="img-fluid rounded-circle">
+                </div>
+                <div>
+                    <h2 class="h5">Katie Johnson, CEO</h2>
+                    <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora ipsam!&rdquo;</blockquote>
+                </div>
+            </div>
+            <div class="d-flex block-testimony">
+                <div class="person mr-3">
+                    <img src="~/Content/images/person_2.jpg" alt="Image" class="img-fluid rounded-circle">
+                </div>
+                <div>
+                    <h2 class="h5">Jane Mars, Designer</h2>
+                    <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora ipsam!&rdquo;</blockquote>
+                </div>
+            </div>
+            <div class="d-flex block-testimony">
+                <div class="person mr-3">
+                    <img src="~/Content/images/person_3.jpg" alt="Image" class="img-fluid rounded-circle">
+                </div>
+                <div>
+                    <h2 class="h5">Shane Holmes, CEO</h2>
+                    <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora ipsam!&rdquo;</blockquote>
+                </div>
+            </div>
+            <div class="d-flex block-testimony">
+                <div class="person mr-3">
+                    <img src="~/Content/images/person_4.jpg" alt="Image" class="img-fluid rounded-circle">
+                </div>
+                <div>
+                    <h2 class="h5">Mark Johnson, CEO</h2>
+                    <blockquote>&ldquo;Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias accusantium qui optio, possimus necessitatibus voluptate aliquam velit nostrum tempora ipsam!&rdquo;</blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

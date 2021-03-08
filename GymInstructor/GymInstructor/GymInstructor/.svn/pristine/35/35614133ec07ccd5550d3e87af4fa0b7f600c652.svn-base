@@ -1,0 +1,63 @@
+﻿using BOL;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace GymInstructor.Areas.UsersSection.Controllers
+{
+    public class ProfileController : BaseUserSectionController
+    {
+        // GET: UsersSection/Profile
+        public ActionResult UserProfile()
+        {
+            try
+            {
+                ViewBag.CountryList = new SelectList(userBs.CountryList(), "ID", "Name");
+                ViewBag.GenderList = new SelectList(userBs.GenderList(), "GenderId", "GenderName"); 
+                return View();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public ActionResult GetState(int CountryId)
+        {
+            try
+            {
+
+                List<State> stateList = userBs.StateList(CountryId);
+                ViewBag.StateList = new SelectList(stateList, "ID", "Name");
+                return PartialView("DisplayState");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public ActionResult GetCity(int stateId)
+        {
+            try
+            {
+                List<City> cityList = userBs.CityList(stateId);
+                ViewBag.CityList = new SelectList(cityList, "ID", "Name");
+                return PartialView("DisplyCity");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        [HttpPost]
+        public ActionResult UserProfile(UserDetail userDetail,HttpPostedFileBase httpPostedFileBase)
+        {
+            if (ModelState.IsValid)
+            {
+
+            }
+            return View();
+        }
+    }
+}

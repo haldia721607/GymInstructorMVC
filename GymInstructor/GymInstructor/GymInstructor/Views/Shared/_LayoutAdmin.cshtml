@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.Title - IronMuscle &mdash; Colorlib Website Template</title>
+    <!-- Add local styles, mostly for plugins css file -->
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+    <!-- Add jQuery Style direct - used for jQGrid plugin -->
+    <link href="@Url.Content("~/Content/admin/Scripts/plugins/jquery-ui/jquery-ui.min.css")" rel="stylesheet" type="text/css" />
+    <!-- Primary Inspinia style -->
+    @System.Web.Optimization.Styles.Render("~/font-awesome/css")
+    @System.Web.Optimization.Styles.Render("~/Content/admin/css")
+    <link href="~/Content/admin/font-awesome/css/font-awesome.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="wrapper">
+        @*Left Side Menu*@
+        @Html.Partial("_LeftMenuAdmin")
+
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+            @*Header*@
+            @Html.Partial("_HeaderAdmin")
+            @*Body*@
+            @RenderBody()
+            @*Footer*@
+            @Html.Partial("_FooterAdmin")
+        </div>
+    </div>
+    <!-- Mainly scripts -->
+    <!-- Section for main scripts render -->
+    @System.Web.Optimization.Scripts.Render("~/bundles/jquery")
+    @System.Web.Optimization.Scripts.Render("~/bundles/bootstrap")
+    @System.Web.Optimization.Scripts.Render("~/plugins/slimScroll")
+    @System.Web.Optimization.Scripts.Render("~/bundles/inspinia")
+    <!-- Skin config script - only for demo purpose-->
+    @System.Web.Optimization.Scripts.Render("~/bundles/skinConfig")
+    <!-- Handler for local scripts -->
+    @RenderSection("scripts", required: false)
+</body>
+</html>

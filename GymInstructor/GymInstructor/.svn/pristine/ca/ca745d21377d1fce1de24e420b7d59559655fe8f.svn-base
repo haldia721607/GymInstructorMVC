@@ -1,0 +1,176 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web;
+using BOL;
+using System.Data.Entity;
+namespace DAL
+{
+    public class AdminDb
+    {
+        private MVCDemoEntities dc;
+        public AdminDb()
+        {
+            dc = new MVCDemoEntities();
+        }
+        public void Save()
+        {
+            dc.SaveChanges();
+        }
+
+        public bool ValidateUser(string username, string password)
+        {
+            try
+            {
+                bool IsValid = false;
+                var checkAdminUser = (from o in dc.Admins where o.Email == username && o.Status == true select o).FirstOrDefault();
+                if (checkAdminUser != null)
+                {
+                    if (BCrypt.Net.BCrypt.Verify(password, checkAdminUser.Password))
+                    {
+                        IsValid = true;
+                    }
+                }
+                return IsValid;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public CommanDetails GetProfileImage(int adminId)
+        {
+            try
+            {
+                CommanDetails commanDetails = new CommanDetails();
+                var getAdminProfileImage = (from o in dc.Admins
+                                            where o.AdminId == adminId
+                                            select new
+                                            {
+                                                o.Name,
+                                                o.Email,
+                                                o.Image,
+                                                o.ImageName,
+                                                o.ImageType
+                                            }).FirstOrDefault();
+                if (getAdminProfileImage != null)
+                {
+                    commanDetails.Name = getAdminProfileImage.Name;
+                    commanDetails.Email = getAdminProfileImage.Email;
+                    commanDetails.Image = getAdminProfileImage.Image;
+                    commanDetails.ImageName = getAdminProfileImage.ImageName;
+                    commanDetails.ImageType = getAdminProfileImage.ImageType;
+                }
+                else
+                {
+                    commanDetails = null;
+                }
+                return commanDetails;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool UpdateAdminProfile(int adminId, UpdateAdminDetail updateAdminDetail, HttpPostedFileBase httpPostedFileBase)
+        {
+            try
+            {
+                bool IsUpdateSuccessfuly = false;
+                dc.Configuration.ValidateOnSaveEnabled = false;
+                var updateAdmin = (from o in dc.Admins where o.AdminId == adminId select o).FirstOrDefault();
+                if (updateAdmin != null)
+                {
+                    byte[] bytes;
+                    if (httpPostedFileBase!=null)
+                    {
+                        if (httpPostedFileBase.ContentLength > 0)
+                        {
+                            using (BinaryReader br = new BinaryReader(httpPostedFileBase.InputStream))
+                            {
+                                bytes = br.ReadBytes(httpPostedFileBase.ContentLength);
+                            }
+                            updateAdmin.Image = bytes;
+                            updateAdmin.ImageName = Path.GetFileName(httpPostedFileBase.FileName);
+                            updateAdmin.ImageType = httpPostedFileBase.ContentType;
+                        }
+                    }
+                    updateAdmin.Name = updateAdminDetail.Name;
+                    updateAdmin.Email = updateAdminDetail.Email;
+                    updateAdmin.Phone = updateAdminDetail.Phone;
+                    updateAdmin.DOB = Convert.ToDateTime(updateAdminDetail.DOB);
+                    updateAdmin.Gender = updateAdminDetail.Gender;
+                    dc.Entry(updateAdmin).State = EntityState.Modified;
+                    Save();
+                    IsUpdateSuccessfuly = true;
+                }
+                return IsUpdateSuccessfuly;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public UpdateAdmin GetAdminDetailById(int adminId)
+        {
+            try
+            {
+                UpdateAdmin updateAdmin = new UpdateAdmin();
+                var getAdminDetail = (from o in dc.Admins where o.AdminId == adminId select o).FirstOrDefault();
+                if (getAdminDetail != null)
+                {
+                    UpdateAdminDetail upAdminDetail = new UpdateAdminDetail();
+                    upAdminDetail.Name = getAdminDetail.Name;
+                    upAdminDetail.Email = getAdminDetail.Email;
+                    upAdminDetail.Phone = getAdminDetail.Phone;
+                    upAdminDetail.DOB = getAdminDetail.DOB;
+                    upAdminDetail.Gender = getAdminDetail.Gender;
+                    upAdminDetail.IsEditAllow = true;
+                    updateAdmin.updateAdminDetail = upAdminDetail;
+                }
+                else
+                {
+                    updateAdmin.updateAdminDetail = null;
+                }
+                return updateAdmin;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public Admin GetAdminByEmail(string email)
+        {
+            try
+            {
+                Admin admin = new Admin();
+                var getAdminDetails = (from o in dc.Admins where o.Email == email select o).FirstOrDefault();
+                if (getAdminDetails != null)
+                {
+                    admin.AdminId = getAdminDetails.AdminId;
+                    admin.Name = getAdminDetails.Name;
+                    admin.Email = getAdminDetails.Email;
+                    admin.Image = getAdminDetails.Image;
+                    admin.ImageName = getAdminDetails.ImageName;
+                    admin.ImageType = getAdminDetails.ImageType;
+                }
+                else
+                {
+                    admin = null;
+                }
+                return admin;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+    }
+}

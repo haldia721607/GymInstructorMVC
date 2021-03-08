@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DAL;
+using BOL;
+
+namespace BLL
+{
+    public class UserBs
+    {
+        private UserDb userDb;
+        public UserBs()
+        {
+            userDb = new UserDb();
+        }
+
+        public User GetUserByEmail(string userEmail)
+        {
+            return userDb.GetUserByEmail(userEmail);
+        }
+    }
+}

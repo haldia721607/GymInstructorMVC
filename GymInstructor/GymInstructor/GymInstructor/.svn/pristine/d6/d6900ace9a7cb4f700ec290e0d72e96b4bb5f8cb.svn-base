@@ -1,0 +1,20 @@
+﻿using GymInstructor.App_Start;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace GymInstructor.Areas.UsersSection.Controllers
+{
+    [Authorize]
+    [SessionExpire]
+    public class DashboardController : Controller
+    {
+        // GET: UsersSection/Dashboard
+        public ActionResult UserDashboard()
+        {
+            return View();
+        }
+    }
+}

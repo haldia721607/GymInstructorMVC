@@ -1,0 +1,51 @@
+﻿@model BOL.SingIn
+
+@{
+    ViewBag.Title = "ResendVerificationEmail";
+    Layout = "~/Views/Shared/_LayoutMain.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+@using (Html.BeginForm("ResendVerificationEmail", "Login", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="site-section bg-light">
+        <div class="container">
+            <div class="row" style="margin-top: -6%;margin-bottom: -6%;">
+                <div class="col-lg-3">
+                </div>
+                <div class="col-md-12 col-lg-6 mb-5">
+                    <form action="#" class="p-5 bg-white">
+                        <div class="col-md-12 text-center">
+                            <h3 class="mb-5">Resend Verification Email</h3>
+                            @if (TempData["Msg"] != null)
+                            {
+                                <h7 class="mb-5" style="color:green">@TempData["Msg"].ToString()</h7>
+                            }
+                            @if (TempData["Fail"] != null)
+                            {
+                                <h7 class="mb-5" style="color:green">@TempData["Fail"].ToString()</h7>
+                            }
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-12 mb-3 mb-md-0">
+                                <label class="font-weight-bold" for="fullname">Email</label>
+                                @Html.EditorFor(model => model.forgetPassword.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter your email address" } })
+                                @Html.ValidationMessageFor(model => model.forgetPassword.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <input type="submit" value="Resend Verification Email" class="btn btn-primary pill px-4 py-2">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-3">
+                </div>
+            </div>
+        </div>
+    </div>
+}

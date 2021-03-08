@@ -1,0 +1,12 @@
+E:\MVCProjects\GymInstructor\BOL\bin\Debug\BOL.dll.config
+E:\MVCProjects\GymInstructor\BOL\bin\Debug\BOL.dll
+E:\MVCProjects\GymInstructor\BOL\bin\Debug\BOL.pdb
+E:\MVCProjects\GymInstructor\BOL\bin\Debug\EntityFramework.dll
+E:\MVCProjects\GymInstructor\BOL\bin\Debug\EntityFramework.SqlServer.dll
+E:\MVCProjects\GymInstructor\BOL\bin\Debug\EntityFramework.xml
+E:\MVCProjects\GymInstructor\BOL\bin\Debug\EntityFramework.SqlServer.xml
+E:\MVCProjects\GymInstructor\BOL\obj\Debug\BOL.csproj.CoreCompileInputs.cache
+E:\MVCProjects\GymInstructor\BOL\obj\Debug\BOL.csproj.CopyComplete
+E:\MVCProjects\GymInstructor\BOL\obj\Debug\BOL.dll
+E:\MVCProjects\GymInstructor\BOL\obj\Debug\BOL.pdb
+E:\MVCProjects\GymInstructor\BOL\obj\Debug\BOL.csprojAssemblyReference.cache

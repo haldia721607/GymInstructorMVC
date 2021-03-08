@@ -1,0 +1,252 @@
+﻿@model List<BOL.UserDetails>
+@{
+    ViewBag.Title = "AllUsers";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        BindSelectAll();
+        //$(document).ajaxStart(function () {
+        //    $("#loading").show();
+        //});
+
+        //$(document).ajaxStop(function () {
+        //    $("#loading").hide();
+        //});
+
+        $("#btnBlockAll").click(function (event) {
+            debugger;
+            var check = confirm("Are you sure you want to block all?");
+            if (check == true) {
+            var checkedIds = $('.ckb').filter(":checked").map(function () { return this.id });
+            var uncheckedIds = $('.ckb').filter("input.ckb:not(:checked)").map(function () { return this.id });
+            var url = "@System.Configuration.ConfigurationManager.AppSettings["WebRoot"]AdminSection/ManageUser/BlockAllUsers/";
+            event.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: url,
+                contentType: "application/json; charset=utf-8",
+                cache: false,
+                traditional: true,
+                data: "{'blockCheckedUserIds:'" + checkedIds + ",'unblockCheckedUserIds':" + uncheckedIds+"}",
+                success: successFuns,
+                error: errorFuns
+                });
+                function successFuns(data) {
+                    $("#Data").html(data);
+                    BindSelectAll();
+                }
+                function errorFuns() {
+                    alert('Something went worng.Please contact to administratot.');
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        });
+        $("#btnDeleteAll").click(function () {
+            var check = confirm("Are you sure you want to delete all?");
+            if (check == true) {
+                checkedIds = $('.dkb').filter(":checked").map(function () { return this.id });
+                var url = "@System.Configuration.ConfigurationManager.AppSettings["WebRoot"]AdminSection/ManageUser/DeleteAllUers/";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    contentType: "application/json; charset=utf-8",
+                    cache: false,
+                    traditional: true,
+                    data: "{'delaeteAllUserIds':" + checkedIds + "}",
+                    success: successFuns,
+                    error: errorFuns
+                });
+                function successFuns(data) {
+                    $("#Data").html(data);
+                    BindSelectAll();
+                }
+                function errorFuns() {
+                    alert('Something went worng.Please contact to administratot.');
+                }
+                return true;
+            } else {
+                return false;
+            }
+        });
+
+        $(".btnBlock").click(function () {
+            debugger;
+            var check = confirm("Are you sure you want to block?");
+            if (check == true) {
+                id = $(this).attr("value");
+                var url = "@System.Configuration.ConfigurationManager.AppSettings["WebRoot"]AdminSection/ManageUser/BlockUser/";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    contentType: "application/json; charset=utf-8",
+                    cache: false,
+                    traditional: true,
+                    data: "{'blockId':" + id + "}",
+                    //dataType: "json",
+                    success: successFuns,
+                    error: errorFuns
+                });
+                function successFuns(data) {
+                    debugger;
+                    $("#Data").html(data);
+                    BindSelectAll();
+                }
+                function errorFuns(jqxhr, status, error) {
+                    alert("e :" + status + " " + error);
+                }
+                return true;
+            } else {
+                return false;
+            }
+        });
+        $(".btnDelete").click(function () {
+            debugger;
+            var check = confirm("Are you sure you want to delete?");
+            if (check == true) {
+                id = $(this).attr("value");
+                var url = "@System.Configuration.ConfigurationManager.AppSettings["WebRoot"]AdminSection/ManageUser/DeleteUser/";
+                $.ajax({
+                    type: "POST",
+                    utl: url,
+                    contentType: "application/json; charset=utf-8",
+                    cache: false,
+                    traditional: true,
+                    data: "{'deleteId':" + id + "}",
+                    success: successFuns,
+                    error: errorFuns
+                });
+                function successFuns(data) {
+                    debugger;
+                    $("#Data").html(data);
+                    BindSelectAll();
+                }
+                function errorFuns(jqxhr, status, error) {
+                    alert("e :" + status + " " + error);
+                }
+                return true;
+            } else {
+                return false;
+            }
+        });
+        $(".btnEdit").click(function () {
+            var check = confirm("Are you sure you want to leave?");
+            if (check == true) {
+                id = $(this).attr("value");
+                var url = "@System.Configuration.ConfigurationManager.AppSettings["WebRoot"]AdminSection/ManageUser/EditUser/";
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    contentType: "application/json; charset=utf-8",
+                    cache: false,
+                    traditional: true,
+                    data: "{'editId:'" + id+"}",
+                    success: successFunc,
+                    error: errorFunc
+                });
+                function successFunc(data) {
+                    $("#Data").html(data);
+                    BindSelectAll();
+                }
+                function errorFunc() {
+                    alert('Something went worng.Please contact to administratot.');
+                }
+                return true;
+            } else {
+                return false;
+            }
+        });
+    });
+   function BindSelectAll()
+    {
+       $("#BlockAll").click(function (event) {//on click
+           if (this.checked) { // check select status
+               $('.ckb').each(function () {//loop through each checkbox
+                   this.checked = true;//select all checkboxes with class "checkbox1"
+               });
+           } else {
+               $('.ckb').each(function () {//loop through each checkbox
+                   this.checked = false;//select all checkboxes with class "checkbox1"
+               });
+           }
+       });
+       $("#DeleteAll").click(function (event) {
+           if (this.checked) {
+               $('.dkb').each(function () {
+                   this.checked = true;
+               });
+           } else {
+               $('.dkb').each(function () {
+                   this.checked = false;
+               });
+           }
+       });
+    }
+    function ConfirmBlock() {
+        return confirm('Are you sure to block selected user.');
+    }
+    function ConfirmEdit() {
+        return confirm('Are you sure to edit this user record.');
+    }
+    function DeleteAll() {
+        return confirm('Are you sure to delete selected user.');
+    }
+</script>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Users List</h2>
+    </div>
+    <div class="col-lg-2">
+    </div>
+    <div class="col-lg-12">
+        @if (TempData["Msg"] != null)
+        {
+            <h5 style="color:green">@TempData["Msg"].ToString();</h5>
+        }
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>Basic Data Tables example with responsive plugin</h5>
+                </div>
+                <div class="ibox-content">
+                    @Html.Partial("pv_AllUsers", Model);
+                    <div class="ibox-content">
+                        <button class="btn btn-primary btn-sm" id="btnBlockAll" name="btnBlockAll" value="Block" type="submit">Block All</button>
+                        <button class="btn btn-primary btn-sm" id="btnDeleteAll" name="btnDeleteAll" value="Delete" type="submit" style="background-color: #d0091c;">Delete All</button>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                            <ul class="pagination">
+                                <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous">
+                                    <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link">Previous</a>
+                                </li>
+                                <li class="paginate_button page-item active">
+                                    <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link">1</a>
+                                </li>
+                                <li class="paginate_button page-item next" id="DataTables_Table_0_next">
+                                    <a href="#" aria-controls="DataTables_Table_0" data-dt-idx="4" tabindex="0" class="page-link">Next</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section Styles {
+
+}
+@section Scripts {
+
+}

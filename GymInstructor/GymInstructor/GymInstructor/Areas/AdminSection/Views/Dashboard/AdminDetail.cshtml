@@ -1,0 +1,13 @@
+﻿
+@if (ViewBag.ProfileImage != null)
+{
+    <img alt="image" style="height:100px" class="rounded-circle" src="@ViewBag.ProfileImage" />
+}
+else
+{
+    <img alt="image" class="rounded-circle" src="~/Content/admin/img/DummyImage.jpg" style="height: 100px;" />
+}
+<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+    <span class="block m-t-xs font-bold">@ViewBag.UserName</span>
+    <span class="text-muted text-xs block">Art Director <b class="caret"></b></span>
+</a>

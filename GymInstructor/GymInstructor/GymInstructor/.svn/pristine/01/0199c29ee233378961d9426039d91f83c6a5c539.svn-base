@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Routing;
+using System.Web.Security;
+
+namespace GymInstructor.App_Start
+{
+    public class SessionExpireAttribute : ActionFilterAttribute
+    {
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            if (HttpContext.Current.Session[SessionObjects.CNUserId] == null)
+            {
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { action = "Logout", Controller = "Login", area = "Security" }));
+                return;
+            }
+        }
+    }
+}

@@ -1,0 +1,137 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace GymInstructor.Areas.AdminSection.Controllers
+{
+    public class ManageUserController : BaseAdminSectionController
+    {
+        // GET: AdminSection/ManageUser
+        public ActionResult AllUsers()
+        {
+            try
+            {
+                var GetUsers = adminArearBs.adminBs.GetAllUsers();
+                return View(GetUsers);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        [HttpPost]
+        public ActionResult BlockAllUsers(List<int> blockCheckedUserIds, List<int> unblockCheckedUserIds)
+        {
+            try
+            {
+                adminArearBs.adminBs.BlockAllUsers(blockCheckedUserIds, unblockCheckedUserIds);
+                TempData["Msg"] = "All selected users are blocked";
+                var GetUsers = adminArearBs.adminBs.GetAllUsers();
+                if (GetUsers != null)
+                {
+                    return PartialView("pv_AllUsers", GetUsers);
+                }
+                else
+                {
+                    return PartialView("pv_AllUsers", null);
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Fail"] = "Something went worng" + ex;
+                return RedirectToAction("AllUsers", "ManageUser");
+                throw;
+            }
+        }
+        [HttpPost]
+        public ActionResult DeleteAllUers(List<int> delaeteAllUserIds)
+        {
+            try
+            {
+                adminArearBs.adminBs.DeleteAllUsers(delaeteAllUserIds);
+                TempData["Msg"] = "All users are deleted successfully.";
+                var GetUsers = adminArearBs.adminBs.GetAllUsers();
+                if (GetUsers != null)
+                {
+                    return PartialView("pv_AllUsers", GetUsers);
+                }
+                else
+                {
+                    return PartialView("pv_AllUsers", null);
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Fail"] = "Something went wrong.Please contact to administrator." + ex;
+                return RedirectToAction("AllUsers", "ManageUser");
+                throw;
+            }
+        }
+        [HttpPost]
+        public ActionResult BlockUser(int blockId)
+        {
+            try
+            {
+                bool blockUser = adminArearBs.adminBs.BlockUser(blockId);
+                if (blockUser == true)
+                {
+                    var GetUsers = adminArearBs.adminBs.GetAllUsers();
+                    if (GetUsers != null)
+                    {
+                        TempData["Msg"] = "User blockd successfully.";
+                        return PartialView("pv_AllUsers", GetUsers);
+                    }
+                    else
+                    {
+                        return PartialView("pv_AllUsers", null);
+                    }
+                }
+                else
+                {
+                    TempData["Fail"] = "Something went wrong.Please contact to administrator.";
+                    return RedirectToAction("AllUsers", "ManageUser");
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Fail"] = "Something went wrong.Please contact to administrator." + ex;
+                return RedirectToAction("AllUsers", "ManageUser");
+                throw;
+            }
+        }
+        [HttpPost]
+        public ActionResult DeleteUser(int deleteId)
+        {
+            try
+            {
+                bool deleteUser = adminArearBs.adminBs.DeleteUser(deleteId);
+                if (deleteUser==true)
+                {
+                    TempData["Msg"] = "Usere deleted successfully";
+                    var GetUsers = adminArearBs.adminBs.GetAllUsers();
+                    if (GetUsers.Count>0)
+                    {
+                        return PartialView("pv_AllUsers", GetUsers);
+                    }
+                    else
+                    {
+                        return PartialView("pv_AllUsers", null);
+                    }
+                }
+                else
+                {
+                    TempData["Fail"] = "Something went wrong.Please contact to administrator.";
+                    return RedirectToAction("AllUsers", "ManageUser");
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Fail"] = "Something went wrong.Please contact to administrator." + ex;
+                return RedirectToAction("AllUsers", "ManageUser");
+                throw;
+            }
+        }
+    }
+}

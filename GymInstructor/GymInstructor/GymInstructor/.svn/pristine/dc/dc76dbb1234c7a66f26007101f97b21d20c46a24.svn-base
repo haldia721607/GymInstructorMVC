@@ -1,0 +1,80 @@
+﻿<div class="site-mobile-menu">
+    <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+            <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+    </div>
+    <div class="site-mobile-menu-body"></div>
+</div> <!-- .site-mobile-menu -->
+<div class="site-navbar-wrap bg-white">
+    <div class="site-navbar-top">
+        <div class="container py-2">
+            <div class="row align-items-center">
+                <div class="col-6">
+                    <a href="#" class="p-2 pl-0"><span class="icon-twitter"></span></a>
+                    <a href="#" class="p-2 pl-0"><span class="icon-facebook"></span></a>
+                    <a href="#" class="p-2 pl-0"><span class="icon-linkedin"></span></a>
+                    <a href="#" class="p-2 pl-0"><span class="icon-instagram"></span></a>
+                    <strong style="color:white">@Html.ActionLink("Register", "Register", new { Controller = "Register", Area = "Security" }) | @Html.ActionLink("Login", "Login", new { Controller = "Login", Area = "Security" })</strong>
+                </div>
+                <div class="col-6">
+                    <div class="d-flex ml-auto">
+                        <a href="#" class="d-flex align-items-center ml-auto mr-4">
+                            <span class="icon-envelope mr-2"></span>
+                            <span class="d-none d-md-inline-block">youremail@domain.com</span>
+                        </a>
+                        <a href="tel://12912830302" class="d-flex align-items-center">
+                            <span class="icon-phone mr-2"></span>
+                            <span class="d-none d-md-inline-block">+1 291 2830 302</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="site-navbar-wrap bg-white">
+    <div class="container">
+        <div class="site-navbar bg-light">
+            <div class="py-1">
+                <div class="row align-items-center">
+                    <div class="col-2">
+                        <h2 class="mb-0 site-logo">iron<strong>muscle</strong></h2>
+                    </div>
+                    <div class="col-10">
+                        <nav class="site-navigation text-right" role="navigation">
+                            <div class="container">
+                                <div class="d-inline-block d-lg-none ml-md-0 mr-auto py-3"><a href="#" class="site-menu-toggle js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
+                                <ul class="site-menu js-clone-nav d-none d-lg-block">
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Index" ? "active" : "")">
+                                        @Html.ActionLink("Home", "Index", new { Controller = "Home", Area = "Common" })
+                                    </li>
+                                    <li class="has-children @(ViewContext.RouteData.Values["Action"].ToString() == "Classes" ? "active" : "")">
+                                        @Html.ActionLink("Classes", "Classes", new { Controller = "Home", Area = "Common" })
+                                        <ul class="dropdown arrow-top">
+                                            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Classes" ? "active" : "")">@Html.ActionLink("Running", "Classes", new { Controller = "Home", Area = "Common" })</li>
+                                            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Classes" ? "active" : "")">@Html.ActionLink("Yoga", "Classes", new { Controller = "Home", Area = "Common" })</li>
+                                            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Classes" ? "active" : "")">@Html.ActionLink("Boxing", "Classes", new { Controller = "Home", Area = "Common" })</li>
+                                            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Classes" ? "has-children active" : "")">
+                                                @Html.ActionLink("Weight Lifting", "Classes", new { Controller = "Home", Area = "Common" })
+                                                <ul class="dropdown">
+                                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Classes" ? "active" : "")">@Html.ActionLink("Men", "Classes", new { Controller = "Home", Area = "Common" })</li>
+                                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Classes" ? "active" : "")">@Html.ActionLink("Women", "Classes", new { Controller = "Home", Area = "Common" })</li>
+                                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Classes" ? "active" : "")">@Html.ActionLink("Children", "Classes", new { Controller = "Home", Area = "Common" })</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Services" ? "active" : "")">@Html.ActionLink("Services", "Services", new { Controller = "Home", Area = "Common" })</li>
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "News" ? "active" : "")">@Html.ActionLink("News", "News", new { Controller = "Home", Area = "Common" })</li>
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "About" ? "active" : "")">@Html.ActionLink("About", "About", new { Controller = "Home", Area = "Common" })</li>
+                                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Contact" ? "active" : "")">@Html.ActionLink("Contact", "Contact", new { Controller = "Home", Area = "Common" })</li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

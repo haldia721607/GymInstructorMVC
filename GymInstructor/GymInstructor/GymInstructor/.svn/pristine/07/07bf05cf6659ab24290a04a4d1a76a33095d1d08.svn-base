@@ -1,0 +1,51 @@
+﻿using GymInstructor.App_Start;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Web;
+using System.Web.Mvc;
+
+namespace GymInstructor.Areas.UsersSection.Controllers
+{
+    public class DashboardController : BaseUserSectionController
+    {
+        // GET: UsersSection/Dashboard
+        public ActionResult UserDashboard()
+        {
+            return View();
+        }
+        public ActionResult UserEmail()
+        {
+            ViewBag.UserEmail = Session[SessionObjects.CNUserEmail];
+            return View();
+        }
+        public ActionResult UserDetails()
+        {
+            if (Session["CNUserImage"]!=null)
+            {
+                CNUserImage = ObjectToByteArray(Session["CNUserImage"]);
+                ViewBag.ProfileImage = "data:image/png;base64" + Convert.ToBase64String(CNUserImage, 0, CNUserImage.Length);
+            }
+            ViewBag.UserName = Session[SessionObjects.CNUserName];
+            return View();
+        }
+        public byte[] CNUserImage { get; set; }
+        private byte[] ObjectToByteArray(Object obj)
+        {
+            if (obj != null)
+            {
+                BinaryFormatter bf = new BinaryFormatter();
+                MemoryStream ms = new MemoryStream();
+                bf.Serialize(ms, obj);
+                CNUserImage = ms.ToArray();
+            }
+            else
+            {
+                CNUserImage = null;
+            }
+            return CNUserImage;
+        }
+    }
+}

@@ -1,0 +1,167 @@
+﻿using BOL;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DAL
+{
+    public class UserDb
+    {
+        private MVCDemoEntities mVCDemoEntities;
+        public UserDb()
+        {
+            mVCDemoEntities = new MVCDemoEntities();
+        }
+        public void Save()
+        {
+            mVCDemoEntities.SaveChanges();
+        }
+
+        public User GetUserByEmail(string userEmail)
+        {
+            try
+            {
+                User user = new User();
+                var getUser = (from objUser in mVCDemoEntities.Users where objUser.Email == userEmail && objUser.IsActive == true && objUser.IsBlockByAdmin == false select objUser).FirstOrDefault();
+                if (getUser != null)
+                {
+                    user.UserId = getUser.UserId;
+                    user.Name = getUser.Name;
+                }
+                else
+                {
+                    user = null;
+                }
+                return user;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool UpdateUserPassword(string password, string confirmPassword, int forgetPassworduserId)
+        {
+            try
+            {
+                bool IsUpdateSuccessflly = false;
+                var updateUserPassword = (from o in mVCDemoEntities.Users where o.UserId == forgetPassworduserId select o).FirstOrDefault();
+                if (updateUserPassword != null)
+                {
+                    mVCDemoEntities.Configuration.ValidateOnSaveEnabled = false;
+                    string newPassword = BCrypt.Net.BCrypt.HashPassword(password, BCrypt.Net.BCrypt.GenerateSalt());
+                    updateUserPassword.Password = newPassword;
+                    updateUserPassword.ConfirmPassword = newPassword;
+                    updateUserPassword.ModifyDate = DateTime.Now;
+                    mVCDemoEntities.Entry(updateUserPassword).State = EntityState.Modified;
+                    Save();
+                    IsUpdateSuccessflly = true;
+                }
+                return IsUpdateSuccessflly;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public User FindUsersByEmail(string email)
+        {
+            User user = new User();
+            var resEmail = (from o in mVCDemoEntities.Users where o.Email == email && o.IsBlockByAdmin==false select o).FirstOrDefault();
+            if (resEmail != null)
+            {
+                user.UserId = resEmail.UserId;
+                user.Name = resEmail.Name;
+                user.Email = resEmail.Name;
+            }
+            else
+            {
+                user = null;
+            }
+            return user;
+        }
+
+        public bool UpdateUserIsActive(string userId)
+        {
+            bool IsSuccessfully = false;
+            int Id = Convert.ToInt32(userId);
+            var updateUserIsActive = (from o in mVCDemoEntities.Users where o.UserId == Id select o).FirstOrDefault();
+            if (updateUserIsActive != null)
+            {
+                updateUserIsActive.IsActive = true;
+                updateUserIsActive.ModifyDate = DateTime.Now;
+                mVCDemoEntities.Entry(updateUserIsActive).State = EntityState.Modified;
+                mVCDemoEntities.Configuration.ValidateOnSaveEnabled = false;
+                Save();
+                IsSuccessfully = true;
+            }
+            return IsSuccessfully;
+        }
+
+        public bool GetUserIsActiveOrNot(string userId)
+        {
+            bool IsActive = false;
+            int Id = Convert.ToInt32(userId);
+            var getUserIsActive = (from o in mVCDemoEntities.Users where o.UserId == Id select o).FirstOrDefault();
+            if (getUserIsActive != null)
+            {
+                IsActive = getUserIsActive.IsActive;
+            }
+            return IsActive;
+        }
+
+        public int NewUser(User user)
+        {
+            try
+            {
+                int userId = 0;
+                User newUser = new User();
+                newUser.Name = user.Name;
+                newUser.Email = user.Email;
+                string password = BCrypt.Net.BCrypt.HashPassword(user.Password, BCrypt.Net.BCrypt.GenerateSalt());
+                newUser.Password = password;
+                newUser.ConfirmPassword = password;
+                newUser.IsActive = user.IsActive;
+                newUser.IsBlockByAdmin = false;
+                newUser.CreatedDate = user.CreatedDate;
+                mVCDemoEntities.Users.Add(newUser);
+                Save();
+                return userId = newUser.UserId;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool ValidateUser(string username, string password)
+        {
+            try
+            {
+                bool IsValid = false;
+                var checkUser = (from o in mVCDemoEntities.Users where o.Email == username && o.IsActive == true && o.IsBlockByAdmin == true select o).FirstOrDefault();
+                if (checkUser != null)
+                {
+                    if (BCrypt.Net.BCrypt.Verify(password, checkUser.Password))
+                    {
+                        IsValid = true;
+                    }
+                }
+                return IsValid;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void CreateUserIfDoesNotExist(string userEmail)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}

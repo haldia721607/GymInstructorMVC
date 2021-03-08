@@ -1,0 +1,24 @@
+﻿<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    @Html.Action("UserDetails", "Dashboard", new { area = "UsersSection" })
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <li><a class="dropdown-item" href="@Url.Action("UserProfile", "Profile", new { Area = "UsersSection" })">Profile</a></li>
+                        <li><a class="dropdown-item" href="@Url.Action("Logout", "Login", new { Area = "Security" })">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    IN+
+                </div>
+            </li>
+            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "UserDashboard" ? "active" : "")">
+                <a href="@Url.Action("UserDashboard","Dashboard",new { area="UsersSection"})"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
+            </li>
+            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "ChangePassword" ? "active" : "")">
+                <a href="@Url.Action("ChangePassword","Dashboard",new { area="UsersSection"})"><i class="fa fa-lock"></i> <span class="nav-label">Change Password</span></a>
+            </li>
+        </ul>
+    </div>
+</nav>

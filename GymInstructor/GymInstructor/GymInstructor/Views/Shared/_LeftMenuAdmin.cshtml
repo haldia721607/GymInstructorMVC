@@ -1,0 +1,27 @@
+﻿<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    @Html.Action("AdminDetail", "Dashboard", new { area = "AdminSection" })
+                    <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <li><a class="dropdown-item" href="@Url.Action("UpdateProfile", "Profile", new { Area = "AdminSection" })">Profile</a></li>
+                        <li><a class="dropdown-item" href="@Url.Action("Logout", "AdminLogin", new { Area = "Security" })">Logout</a></li>
+                    </ul>
+                </div>
+                <div class="logo-element">
+                    IN+
+                </div>
+            </li>
+            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Dashboard" ? "active" : "")">
+                <a href="@Url.Action("Dashboard","Dashboard",new { area="AdminSection"})"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
+            </li>
+            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "AllUsers" ? "active" : "")">
+                <a href="@Url.Action("AllUsers","ManageUser",new { area="AdminSection"})"><i class="fa fa-th-large"></i> <span class="nav-label">Users</span></a>
+            </li>
+            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "ChangePassword" ? "active" : "")">
+                <a href="@Url.Action("ChangePassword","Dashboard",new { area="AdminSection"})"><i class="fa fa-lock"></i> <span class="nav-label">Change Password</span></a>
+            </li>
+        </ul>
+    </div>
+</nav>

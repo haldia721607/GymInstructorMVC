@@ -1,0 +1,16 @@
+E:\MVCProjects\GymInstructor\BLL\bin\Debug\BLL.dll
+E:\MVCProjects\GymInstructor\BLL\bin\Debug\BLL.pdb
+E:\MVCProjects\GymInstructor\BLL\bin\Debug\BOL.dll
+E:\MVCProjects\GymInstructor\BLL\bin\Debug\DAL.dll
+E:\MVCProjects\GymInstructor\BLL\bin\Debug\EntityFramework.dll
+E:\MVCProjects\GymInstructor\BLL\bin\Debug\BCrypt.Net.dll
+E:\MVCProjects\GymInstructor\BLL\bin\Debug\BOL.pdb
+E:\MVCProjects\GymInstructor\BLL\bin\Debug\BOL.dll.config
+E:\MVCProjects\GymInstructor\BLL\bin\Debug\DAL.pdb
+E:\MVCProjects\GymInstructor\BLL\bin\Debug\EntityFramework.xml
+E:\MVCProjects\GymInstructor\BLL\bin\Debug\BCrypt.Net.xml
+E:\MVCProjects\GymInstructor\BLL\obj\Debug\BLL.csprojAssemblyReference.cache
+E:\MVCProjects\GymInstructor\BLL\obj\Debug\BLL.csproj.CoreCompileInputs.cache
+E:\MVCProjects\GymInstructor\BLL\obj\Debug\BLL.csproj.CopyComplete
+E:\MVCProjects\GymInstructor\BLL\obj\Debug\BLL.dll
+E:\MVCProjects\GymInstructor\BLL\obj\Debug\BLL.pdb

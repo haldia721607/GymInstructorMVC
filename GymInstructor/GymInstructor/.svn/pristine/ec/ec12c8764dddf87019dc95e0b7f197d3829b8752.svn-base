@@ -1,0 +1,71 @@
+﻿using BOL;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DAL
+{
+    public class UserDb
+    {
+        private MVCDemoEntities mVCDemoEntities;
+        public UserDb()
+        {
+            mVCDemoEntities = new MVCDemoEntities();
+        }
+        public void Save()
+        {
+            mVCDemoEntities.SaveChanges();
+        }
+
+        public User GetUserByEmail(string userEmail)
+        {
+            try
+            {
+                User user = new User();
+                var getUser = (from objUser in mVCDemoEntities.Users where objUser.Email == userEmail select objUser).FirstOrDefault();
+                if (getUser != null)
+                {
+                    user.UserId = getUser.UserId;
+                    user.Name = getUser.Name;
+                }
+                else
+                {
+                    user = null;
+                }
+                return user;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool ValidateUser(string username, string password)
+        {
+            try
+            {
+                bool IsValid = false;
+                var checkUser = (from o in mVCDemoEntities.Users where o.Email == username && o.IsActive == true select o).FirstOrDefault();
+                if (checkUser != null)
+                {
+                    if (BCrypt.Net.BCrypt.Verify(password,checkUser.Password))
+                    {
+                        IsValid = true;
+                    }
+                }
+                return IsValid;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public void CreateUserIfDoesNotExist(string userEmail)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}

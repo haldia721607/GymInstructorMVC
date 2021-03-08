@@ -1,0 +1,103 @@
+﻿using BOL;
+using GymInstructor.App_Start;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace GymInstructor.Areas.UsersSection.Controllers
+{
+    public class ProfileController : BaseUserSectionController
+    {
+        // GET: UsersSection/Profile
+        public ActionResult UserProfile()
+        {
+            try
+            {
+                var getUserDetails = userBs.GetUserDetailById(Convert.ToInt32(Session[SessionObjects.CNUserId]));
+                ViewBag.CountryList = new SelectList(userBs.CountryList(), "ID", "Name");
+                ViewBag.GenderList = new SelectList(userBs.GenderList(), "GenderId", "GenderName");
+                if (getUserDetails!=null)
+                {
+                    return View(getUserDetails);
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public ActionResult GetState(int CountryId)
+        {
+            try
+            {
+                List<State> stateList = userBs.StateList(CountryId);
+                ViewBag.StateList = new SelectList(stateList, "ID", "Name");
+                return PartialView("DisplayState");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public ActionResult GetCity(int stateId)
+        {
+            try
+            {
+                List<City> cityList = userBs.CityList(stateId);
+                ViewBag.CityList = new SelectList(cityList, "ID", "Name");
+                return PartialView("DisplyCity");
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        [HttpPost]
+        public ActionResult UserProfile(UpdateUserDetail userDetail,HttpPostedFileBase httpPostedFileBase)
+        {
+            try
+            {
+                int userId = Convert.ToInt32(Session[SessionObjects.CNUserId]);
+                var getUserDetails = userBs.GetUserDetailById(userId);
+                if (getUserDetails!=null)
+                {
+                    //Update
+                    if (ModelState.IsValid)
+                    {
+                        bool updateUserDetail = userBs.UpdateUserDetail(userId, userDetail, httpPostedFileBase);
+                        if (updateUserDetail==true)
+                        {
+                            TempData["Msg"] = "User detail update successfully";
+                        }
+                    }
+
+                }
+                else
+                {
+                    //Insert
+                    if (ModelState.IsValid)
+                    {
+                        bool insertUserDetail = userBs.InsertUserDetail(userId,userDetail,httpPostedFileBase);
+                        if (insertUserDetail==true)
+                        {
+                            TempData["Msg"] = "User detail update successfully";
+                        }
+                    }
+                }
+                return View();
+            }
+            catch (Exception ex)
+            {
+                TempData["Fail"] = "Something went wrong . Please contact to administrator." + ex;
+                return RedirectToAction("UserProfile", "Profile", new { area = "UsersSection" });
+                throw;
+            }
+        }
+    }
+}
